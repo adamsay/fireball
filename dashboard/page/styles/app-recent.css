@@ -1,7 +1,6 @@
 :host {
     @apply(--layout-fit);
     background: #262626;
-
 }
 
 [flex-1] {

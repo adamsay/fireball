@@ -43,3 +43,4 @@ ext/
 bin/
 builtin/
 runtime/
+dashboard/page/styles/app-recent.css
