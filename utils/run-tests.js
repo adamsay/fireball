@@ -31,7 +31,7 @@ if (singleTestFile) {
         }
         var indexFile = Path.join(cwd, singleTestFile);
         if ( Fs.existsSync(indexFile) ) {
-            files = require(indexFile);
+            var files = require(indexFile);
             files.forEach(function ( file ) {
                 var testfile = Path.join( Path.dirname(indexFile), file );
                 console.log( Chalk.magenta( 'Start test (' + testfile + ')') );
@@ -44,7 +44,7 @@ if (singleTestFile) {
     } else {
         if ( Path.basename(singleTestFile) === 'index.js' ) {
             indexFile = Path.join(cwd, singleTestFile);
-            files = require(indexFile);
+            var files = require(indexFile);
             files.forEach(function ( file ) {
                 var testfile = Path.join( Path.dirname(indexFile), file );
                 console.log( Chalk.magenta( 'Start test (' + testfile + ')') );
@@ -57,17 +57,18 @@ if (singleTestFile) {
     }
 }
 else {
+    var fileList = [];
     testDirs.forEach( function ( path ) {
         if ( !Fs.existsSync(path) ) {
             console.error( 'Path not found %s', path );
             return;
         }
-
         var indexFile = Path.join( path, 'index.js' );
         if ( Fs.existsSync(indexFile) ) {
-            files = require(indexFile);
+            var files = require(indexFile);
             files.forEach(function ( file ) {
-                var testfile = Path.join(path,file);
+              // console.log(file);
+                var testfile = Path.join( Path.dirname(indexFile), file );
                 console.log( Chalk.magenta( 'Start test (' + testfile + ')') );
                 SpawnSync(exePath, [cwd, '--test', testfile], {stdio: 'inherit'});
             });
